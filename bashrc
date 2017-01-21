@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 git_branch() {
-  git branch 2>/dev/null | grep '^*' | colrm 1 2
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
 RESET='\[\033[00m\]'
@@ -65,11 +65,11 @@ PURPLE='\[\033[01;95m\]'
 GREEN='\[\033[01;32m\]'
 BLUE='\[\033[01;34m\]'
 YELLOW='\[\033[01;33m\]'
+
 if [ "$color_prompt" = yes ]; then
-  BRANCH=$(git_branch)
-  PS1="${debian_chroot:+($debian_chroot)}$PURPLE[\t]$GREEN\u@\h$RESET:$BLUE\w$YELLOW|$BRANCH$RESET$ "
+  PS1="${debian_chroot:+($debian_chroot)}$PURPLE[\t]$GREEN\u@\h$RESET:$BLUE\w$YELLOW|\$(git_branch)$RESET$ "
 else
-  PS1="${debian_chroot:+($debian_chroot)}[\t]\u@\h:\w|$BRANCH$ "
+  PS1="${debian_chroot:+($debian_chroot)}[\t]\u@\h:\w|$(git_branch)$ "
 fi
 unset color_prompt force_color_prompt
 
@@ -126,6 +126,42 @@ if ! shopt -oq posix; then
   fi
 fi
 
+######## Tiny OS variables #########
+
+# {{{
+# Node Completion - Auto-generated, do not touch.
+shopt -s progcomp
+for f in $(command ls ~/.node-completion); do
+  f="$HOME/.node-completion/$f"
+  test -f "$f" && . "$f"
+done
+# }}}
+
+
+export PATH=/home/antoine/torch/install/bin:$PATH  # Added automatically by torch-dist
+export LD_LIBRARY_PATH=/home/antoine/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
+export DYLD_LIBRARY_PATH=/home/antoine/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
+
+# Add ~/bin to PATH
+export PATH=/home/antoine/bin/:$PATH
+
+# Protobuf variable
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp
+export LD_LIBRARY_PATH=/home/antoine/tf/tensorflow/google/protobuf/src/.libs:$LD_LIBRARY_PATH
+export PYTHONPATH=/home/antoine/tf/tensorflow/google/protobuf/python/google/:$PYTHONPATH
+
+# Add the code 
+export PYTHONPATH=/home/antoine/code/games/PyGamePlayer:$PYTHONPATH
+export PYTHONPATH=/home/antoine/code/tensorflow/Reminiz_experiments/tensorflow/nets:$PYTHONPATH
 # Alias to have pretty colors with tmux
 alias tmux="tmux -2"
 
+# q language settings
+export QHOME=~/q/
+export PATH=$PATH:$QHOME/l32/
+alias q='rlwrap -p"1;30;46" -c -r q'
+
+# OpenBLAS
+export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:$LD_LIBRARY_PATH
+# MxNet
+export PYTHONPATH=$HOME/repos/mxnet/python:$PYTHONPATH

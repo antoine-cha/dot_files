@@ -4,8 +4,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-  *) return;;
+    *i*) ;;
+      *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -23,7 +23,7 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a Ppathname expansion context will
+# If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
@@ -32,12 +32,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm-color) color_prompt=yes;;
+    xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -46,52 +46,44 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
 fi
 
-git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
-}
-
-RESET='\[\033[00m\]'
-PURPLE='\[\033[01;95m\]'
-GREEN='\[\033[01;32m\]'
-BLUE='\[\033[01;34m\]'
-YELLOW='\[\033[01;33m\]'
-
+# Add Git branch in prompt
+source ~/.git-prompt.sh
 if [ "$color_prompt" = yes ]; then
-  PS1="${debian_chroot:+($debian_chroot)}$PURPLE[\t]$GREEN\u@\h$RESET:$BLUE\w$YELLOW|\$(git_branch)$RESET$ "
+  PS1='${debian_chroot:+($debian_chroot)}\[\e[01;35m\][\t]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[01;33m\]$(__git_ps1 "|%s")\[\033[00m\]\$ '
 else
-  PS1="${debian_chroot:+($debian_chroot)}[\t]\u@\h:\w|$(git_branch)$ "
+    PS1='${debian_chroot:+($debian_chroot)}[\t]\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-  xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\t\u@\h: \w\a\]$PS1"
     ;;
-  *)
+*)
     ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -112,7 +104,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -126,42 +118,67 @@ if ! shopt -oq posix; then
   fi
 fi
 
-######## Tiny OS variables #########
-
-# {{{
-# Node Completion - Auto-generated, do not touch.
-shopt -s progcomp
-for f in $(command ls ~/.node-completion); do
-  f="$HOME/.node-completion/$f"
-  test -f "$f" && . "$f"
-done
-# }}}
+###############
+# Custom part #
+###############
+# Change ls colors to fade *.pyc files
+export LS_COLORS=$LS_COLORS:'*.pyc=0;33'
 
 
-export PATH=/home/antoine/torch/install/bin:$PATH  # Added automatically by torch-dist
-export LD_LIBRARY_PATH=/home/antoine/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
-export DYLD_LIBRARY_PATH=/home/antoine/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
+# Add local cmd
+export PATH=$PATH:/usr/local/bin
 
-# Add ~/bin to PATH
-export PATH=/home/antoine/bin/:$PATH
-
-# Protobuf variable
-export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp
-export LD_LIBRARY_PATH=/home/antoine/tf/tensorflow/google/protobuf/src/.libs:$LD_LIBRARY_PATH
-export PYTHONPATH=/home/antoine/tf/tensorflow/google/protobuf/python/google/:$PYTHONPATH
-
-# Add the code 
-export PYTHONPATH=/home/antoine/code/games/PyGamePlayer:$PYTHONPATH
-export PYTHONPATH=/home/antoine/code/tensorflow/Reminiz_experiments/tensorflow/nets:$PYTHONPATH
-# Alias to have pretty colors with tmux
+if [ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh ]; then
+  source /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+fi
+# Support 256 colors in the terminal
 alias tmux="tmux -2"
 
-# q language settings
-export QHOME=~/q/
-export PATH=$PATH:$QHOME/l32/
-alias q='rlwrap -p"1;30;46" -c -r q'
+
+# Enable tab renaming by using `set-title <my_title>`
+function set-title() {
+  # Unset it otherwise it overrides $PS1
+  PROMPT_COMMAND=
+  if [[ -z "$ORIG" ]]; then
+    ORIG='${debian_chroot:+($debian_chroot)}\[\e[01;35m\][\t]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[01;33m\]$(__git_ps1 "|%s")\[\033[00m\]\$ '
+  fi
+  TITLE="\[\e]2;$@\a\]"
+  PS1=${ORIG}${TITLE}
+}
 
 # OpenBLAS
 export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:$LD_LIBRARY_PATH
-# MxNet
-export PYTHONPATH=$HOME/repos/mxnet/python:$PYTHONPATH
+# Link openCV and protobuf
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+# Put /usr/local/lib first to force checking custom libs
+export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+
+# Add path to bazel
+export PATH=$PATH:/usr/local/lib/
+# Add Cuda Tookit execs e.g. NVCC
+export PATH=$PATH:/usr/local/cuda/bin/
+
+
+
+# Path to indicate the typelib for Vips
+export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0/
+
+alias pcat='pygmentize -g'
+
+alias sl='sl -e'
+# Get color support for 'less'
+export LESS="--RAW-CONTROL-CHARS"
+# Use colors for less, man, etc.
+[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+# Search in history
+PROMPT_COMMAND='history -a'
+
+# pip bash completion start
+_pip_completion()
+{
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+

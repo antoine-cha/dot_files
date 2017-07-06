@@ -9,6 +9,7 @@ bash install.sh
 
 ## Vim
 
+[.vimrc](./vimrc)
 
 ## Bash
 

@@ -100,7 +100,6 @@ let g:syntastic_python_checkers = ['pylint']
 
 
 "--------------- vim-airline -------------
-let g:airline_theme = 'luna'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'

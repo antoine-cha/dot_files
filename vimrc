@@ -55,6 +55,9 @@ map <F3> :lprev <CR>
 map <F4> :lnext <CR>
 " Exec current script with Pytohn using F1
 map <F1> :!python %:p <enter>
+" Disply list of matches when using tab completion for commands
+set wildmenu
+
 
 colorscheme molokai
 let g:molokai_original = 1

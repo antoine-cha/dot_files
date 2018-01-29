@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -55,20 +55,18 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-
-# Add Git branch in prompt
-source ~/.git-prompt.sh
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\e[01;35m\][\t]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[01;33m\]$(__git_ps1 "|%s")\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[01;35m\][\t]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[01;33m\]$(__git_ps1 "|%s")\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}[\t]\u@\h:\w\$ '
 fi
+
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\t\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -98,15 +96,6 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -117,68 +106,16 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-###############
-# Custom part #
-###############
-# Change ls colors to fade *.pyc files
-export LS_COLORS=$LS_COLORS:'*.pyc=0;33'
-
-
-# Add local cmd
-export PATH=$PATH:/usr/local/bin
-
-if [ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh ]; then
-  source /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+# ----  Setup for Lubuntu  ---- #
+# Dual screen display
+if [ -f ~/.screenlayout/dual.sh ]; then
+    ~/.screenlayout/dual.sh
 fi
-# Support 256 colors in the terminal
-alias tmux="tmux -2"
 
+# Make home, end buttons work under Tmux
+if [[ -n "$TMUX" ]]; then
+  bind '"\e[1~":"\eOH"'
+  bind '"\e[4~":"\eOF"'
+fi
 
-# Enable tab renaming by using `set-title <my_title>`
-function set-title() {
-  # Unset it otherwise it overrides $PS1
-  PROMPT_COMMAND=
-  if [[ -z "$ORIG" ]]; then
-    ORIG='${debian_chroot:+($debian_chroot)}\[\e[01;35m\][\t]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\e[01;33m\]$(__git_ps1 "|%s")\[\033[00m\]\$ '
-  fi
-  TITLE="\[\e]2;$@\a\]"
-  PS1=${ORIG}${TITLE}
-}
-
-# OpenBLAS
-export LD_LIBRARY_PATH=/opt/OpenBLAS/lib:$LD_LIBRARY_PATH
-# Link openCV and protobuf
-export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
-# Put /usr/local/lib first to force checking custom libs
-export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
-
-# Add path to bazel
-export PATH=$PATH:/usr/local/lib/
-# Add Cuda Tookit execs e.g. NVCC
-export PATH=$PATH:/usr/local/cuda/bin/
-
-
-
-# Path to indicate the typelib for Vips
-export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0/
-
-alias pcat='pygmentize -g'
-
-alias sl='sl -e'
-# Get color support for 'less'
-export LESS="--RAW-CONTROL-CHARS"
-# Use colors for less, man, etc.
-[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
-# Search in history
-PROMPT_COMMAND='history -a'
-
-# pip bash completion start
-_pip_completion()
-{
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
-
+source ~/.aliases

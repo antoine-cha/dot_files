@@ -52,6 +52,8 @@ alias d-c='docker-compose'
 alias d-m='docker-machine'
 alias dclogs='docker-compose logs -f'
 
+# Tmux uses 256 colors
+alias tmux='tmux -2'
 
 # Vim aliasess
 alias vimvim='/usr/bin/vim'

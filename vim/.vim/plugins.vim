@@ -1,76 +1,3 @@
-" set UTF-8 encoding
-" reminiz => rc19
-set enc=utf-8
-set fenc=utf-8
-set termencoding=utf-8
-" disable vi compatibility (emulation of old bugs)
-set nocompatible
-" use indentation of previous line
-set autoindent
-" use intelligent indentation for C
-set smartindent
-" configure tabwidth and insert spaces instead of tabs
-set tabstop=4 " tab width is 4 spaces
-set expandtab " expand tabs to spaces
-set softtabstop=4
-set shiftwidth=4 " indent also with 4 spaces
-filetype indent on
-" Remove useless spaces at the end of the line
-autocmd BufWritePre * %s/\s\+$//e
-" wrap lines at 120 chars. 80 is somewhat antiquated with nowadays displays.
-"set textwidth=120
-set colorcolumn=120
-" turn syntax highlighting on
-set t_Co=256
-syntax on
-" turn line numbers on
-set number
-" highlight matching braces
-set showmatch
-" Highlight current line
-set cursorline
-" intelligent comments
-set comments=sl:/*,mb:\ *,elx:\ */
-" Highlight search pattern where found
-set hlsearch
-" Start searching on the first key stroke
-set incsearch
-"" Disable arrow keys
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
-"" Use jk to escape (as it is closer)
-inoremap jk <Esc>
-" Fold code based on indent
-set foldmethod=indent
-" Change indentation for html
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-" HTML filetpye detection with ext (remove problems with templates)
-au BufReadPost *.html set filetype=html
-" Override s3cfg filetype
-au! BufNewFile,BufRead *.s3cfg setf dosini
-" Binding for lnext and lprev to jump to errors
-map <F3> :lprev <CR>
-map <F4> :lnext <CR>
-" Exec current script with Pytohn using F1
-map <F1> :!python %:p <enter>
-" Disply list of matches when using tab completion for commands
-set wildmenu
-
-
-colorscheme molokai
-let g:molokai_original = 1
-let g:rehash256 = 1
-syntax enable
-" PostgreSQL syntax by default
-let g:sql_type_default = 'pgsql'
-" Enable italics
-set t_ZH=[3m
-set t_ZR=[23m
-" Reformat the current file with YAPF
-autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr><C-o>h
-
 
 "---------------------------------------
 "--------------- PLUGINS ---------------
@@ -79,6 +6,7 @@ execute pathogen#infect()
 
 "--------------- python-mode ---------------
 call pathogen#helptags()
+filetype plugin on
 filetype plugin indent on
 let g:pymode_virtualenv = 0
 let g:pymode_options_max_line_length = 119
@@ -100,6 +28,7 @@ let g:syntastic_loc_list_height = 5
 nnoremap <leader>c :w<Cr>:SyntasticCheck<Cr>
 " Python checker
 let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_js_checkers = ['jslint']
 
 
 "--------------- vim-airline -------------
@@ -111,10 +40,15 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
-" Powerline --------
+let g:airline#extensions#syntastic#enabled = 0
+
+" -------------- Powerline --------
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 " Always show statusline
 set laststatus=2
+
+"--------------- vim-airline -------------
+let g:airline_theme = 'badwolf'
 
 "--------------- indent-guides -----------
 let g:indent_guides_start_level = 2
@@ -146,6 +80,12 @@ call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
 call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+" Opens on vim <file>, not on vim .
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+map <C-n> :NERDTreeToggle<CR>
+" Close vim if last window is NERDtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "--------------- Markdown-preview -----------
 let g:mkdp_path_to_chrome = "firefox"
@@ -167,3 +107,8 @@ let g:multi_cursor_exit_from_insert_mode=0
 let g:multi_cursor_quit_key='q'
 let g:multi_cursor_insert_maps={'j':1}
 
+"--------------- vim-commentary -----------
+
+"--------------- vim-template -----------
+"
+"--------------- vim-fugitive -----------

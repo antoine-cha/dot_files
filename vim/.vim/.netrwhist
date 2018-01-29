@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/antoine/work/live-dev/live-visu'
+let g:netrw_dirhist_2='/home/antoine/work/live-dev/live-visu/visualisator'
+let g:netrw_dirhist_3='/home/antoine/work/live-dev/live-visu/visualisator/src/templates'
+let g:netrw_dirhist_4='/home/antoine/work/live-dev/live-visu/visualisator/src'
+let g:netrw_dirhist_5='/home/antoine/work/mxnet'
+let g:netrw_dirhist_6='/home/antoine/work/mxnet/src'
+let g:netrw_dirhist_7='/home/antoine/work/mxnet/src/detection'
+let g:netrw_dirhist_8='/home/chacha/work/demo_centrale'

@@ -1,0 +1,59 @@
+# Autocomplete for docker stuff
+
+# Copy autocompletion from other function
+get_completions(){
+    local completion COMP_CWORD COMP_LINE COMP_POINT COMP_WORDS COMPREPLY=()
+    # load bash-completion if necessary
+    declare -F _completion_loader &>/dev/null || {
+        source /usr/share/bash-completion/bash_completion
+    }
+    COMP_LINE=$*
+    COMP_POINT=${#COMP_LINE}
+    eval set -- "$@"
+    COMP_WORDS=("$@")
+    # add '' to COMP_WORDS if the last character of the command line is a space
+    [[ ${COMP_LINE[@]: -1} = ' ' ]] && COMP_WORDS+=('')
+    # index of the last word
+    COMP_CWORD=$(( ${#COMP_WORDS[@]} - 1 ))
+    # determine completion function
+    completion=$(complete -p "$1" 2>/dev/null | awk '{print $(NF-1)}')
+    # run _completion_loader only if necessary
+    [[ -n $completion ]] || {
+        # load completion
+        _completion_loader "$1"
+        # detect completion
+        completion=$(complete -p "$1" 2>/dev/null | awk '{print $(NF-1)}')
+    }
+    # ensure completion was detected
+    [[ -n $completion ]] || return 1
+    # execute completion function
+    "$completion"
+    # Return array of completions
+    echo "${COMPREPLY[@]}"
+}
+
+# --------- Docker ---------
+function _listcontainers() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local comp=$(get_completions 'docker attach ')
+    COMPREPLY=( $(compgen -W "$comp" -- $cur) )
+}
+
+function dockbash() {
+    docker exec -ti $1 /bin/bash
+}
+function dlogsnow() {
+    docker logs --since `date +%s` -f $1
+}
+
+complete -F _listcontainers dockbash
+complete -F _listcontainers dlogsnow
+alias d-c='docker-compose'
+alias d-m='docker-machine'
+alias dclogs='docker-compose logs -f'
+
+
+# Vim aliasess
+alias vimvim='/usr/bin/vim'
+alias vim='nvim'
+alias wsteam='WINEPREFIX=/home/antoine/fun/wine/ wine /home/antoine/fun/wine/drive_c/Program\ Files/Steam/Steam.exe --no-cef-sandbox'

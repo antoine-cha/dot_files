@@ -108,8 +108,8 @@ if ! shopt -oq posix; then
 fi
 # ----  Setup for Lubuntu  ---- #
 # Dual screen display
-if [ -f ~/.screenlayout/dual.sh ]; then
-    ~/.screenlayout/dual.sh
+if [ -f ~/.screenlayout/dual_screen.sh  ]; then
+    ~/.screenlayout/dual_screen.sh
 fi
 
 # Make home, end buttons work under Tmux
@@ -119,3 +119,15 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 source ~/.aliases
+# Neovim fix
+export VTE_VERSION=100
+# Use xterm on i3
+export TERM=xterm-256color
+export TERMINAL=xterm
+start-pulseaudio-x11
+
+# ---- Configuration status check ---- #
+CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))
+echo "Status of config repo:"
+cd $CONFIG_REPO && git st
+

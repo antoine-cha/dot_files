@@ -107,10 +107,6 @@ if ! shopt -oq posix; then
   fi
 fi
 # ----  Setup for Lubuntu  ---- #
-# Dual screen display
-if [ -f ~/.screenlayout/dual_screen.sh  ]; then
-    ~/.screenlayout/dual_screen.sh
-fi
 
 # Make home, end buttons work under Tmux
 if [[ -n "$TMUX" ]]; then
@@ -129,5 +125,7 @@ start-pulseaudio-x11
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))
 echo "Status of config repo:"
-cd $CONFIG_REPO && git st
+pushd $CONFIG_REPO
+git st
+popd
 

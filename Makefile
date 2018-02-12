@@ -6,3 +6,4 @@ install:
 	stow -t $$HOME tmux
 	stow -t $$HOME vim
 	stow -t $$HOME yapf
+	stow -t $$HOME xterm

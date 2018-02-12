@@ -64,6 +64,7 @@ au BufRead,BufNewFile *.ini.template set filetype=dosini
 au BufRead,BufNewFile *.yml.template set filetype=yaml
 
 au BufRead,BufNewFile nginx*.conf set filetype=nginx
+au BufRead,BufNewFile .X* set filetype=xdefaults
 " Binding for lnext and lprev to jump to errors
 map <F3> :lprev <CR>
 map <F4> :lnext <CR>

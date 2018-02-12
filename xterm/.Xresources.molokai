@@ -1,7 +1,7 @@
 ! Colours are in groups as the second one should be a brighter version.
 
 ! Background: black, dark grey
-#define _background #171812
+#define _background #060701
 #define _color8 #303030
 
 ! Color1/foreground: light grey: standard files, cursor

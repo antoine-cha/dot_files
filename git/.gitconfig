@@ -9,6 +9,7 @@
     co = checkout
     graph = log --graph --oneline --decorate=short --branches='*'
     br = branch
+    bra = branch --all
     df = diff --color-words='[^[:space:]]'
     sh = show --color-words='[^[]]'
 [color "status"]

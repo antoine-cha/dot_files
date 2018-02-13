@@ -10,6 +10,10 @@ function cmd_exists() {
 
 function toggle-python() {
     PYTHON_VERSION=$1
+    if [ "$PYTHON_VERSION" == "$_CUR_PYTHON_VERSION" ]; then
+        echo "Using python $PYTHON_VERSION"
+        return 0
+    fi
     if [ "$#" -ne 1 ]; then
         echo "Error: missing PYTHON_VERSION parameter"
         return 1
@@ -32,4 +36,5 @@ function toggle-python() {
     alias python=$NEW_PYTHON
     alias pip=$NEW_PIP
     alias pylint=$NEW_PYLINT
+    export _CUR_PYTHON_VERSION=$PYTHON_VERSION
 }

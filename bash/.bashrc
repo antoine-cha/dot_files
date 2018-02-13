@@ -124,6 +124,8 @@ start-pulseaudio-x11
 
 # ---- Additional commands ---- #
 source ~/.utilities
+toggle-python 3.6
+echo ""
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))

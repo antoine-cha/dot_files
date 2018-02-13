@@ -18,14 +18,18 @@ function toggle-python() {
         echo "Error: python$PYTHON_VERSION is not installed"
         return 1
     fi
-    echo "Switching Python to version $PYTHON_VERSION: "
-    alias python='python$PYTHON_VERSION'
-    alias pip='python$PYTHON_VERSION -m pip'
-    alias pylint='python$PYTHON_VERSION -m pylint'
-    python --version
-    pip --version
-    pip install --upgrade pip
+    echo "*** Toggling Python$PYTHON_VERSION *** "
+    NEW_PYTHON="python$PYTHON_VERSION"
+    NEW_PIP="python$PYTHON_VERSION -m pip"
+    NEW_PYLINT="python$PYTHON_VERSION -m pylint"
+    $NEW_PYTHON --version
+    $NEW_PIP --version
+    $NEW_PIP install --quiet --upgrade pip
     echo "*** Pylint"
-    pip install pylint
-    pylint --version
+    $NEW_PIP install --quiet pylint
+    $NEW_PYLINT --version
+    # Aliases defined in a function are not available until after that function is executed
+    alias python=$NEW_PYTHON
+    alias pip=$NEW_PIP
+    alias pylint=$NEW_PYLINT
 }

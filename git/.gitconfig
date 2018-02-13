@@ -4,14 +4,16 @@
 [core]
 	editor = vim
 [alias]
-    st = status -sb
-    ci = commit
-    co = checkout
-    graph = log --graph --oneline --decorate=short --branches='*'
     br = branch
     bra = branch --all
+    brd = branch --delete
+    ci = commit
+    co = checkout
     df = diff --color-words='[^[:space:]]'
+    fap = fetch --all --prune
+    graph = log --graph --oneline --decorate=short --branches='*'
     sh = show --color-words='[^[]]'
+    st = status -sb
 [color "status"]
     added = yellow
     changed = green

@@ -122,6 +122,9 @@ export TERM=xterm-256color
 export TERMINAL=xterm
 start-pulseaudio-x11
 
+# ---- Additional commands ---- #
+source ~/.utilities
+
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))
 echo "Status of config repo:"

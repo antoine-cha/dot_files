@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function cmd_exists() {
+    if command -v $1 > /dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function toggle-python() {
+    PYTHON_VERSION=$1
+    if [ "$#" -ne 1 ]; then
+        echo "Error: missing PYTHON_VERSION parameter"
+        return 1
+    fi
+    if ! cmd_exists python$PYTHON_VERSION; then
+        echo "Error: python$PYTHON_VERSION is not installed"
+        return 1
+    fi
+    echo "Switching Python to version $PYTHON_VERSION: "
+    alias python='python$PYTHON_VERSION'
+    alias pip='python$PYTHON_VERSION -m pip'
+    alias pylint='python$PYTHON_VERSION -m pylint'
+    python --version
+    pip --version
+    pip install --upgrade pip
+    echo "*** Pylint"
+    pip install pylint
+    pylint --version
+}

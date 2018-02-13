@@ -20,6 +20,10 @@
     meta = yellow bold
     frag = magenta bold
     new = green bold
+[color "branch"]
+    current = yellow bold
+    local = white
+    remote = red
 [log]
     date = relative
 [format]

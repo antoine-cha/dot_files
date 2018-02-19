@@ -87,11 +87,8 @@ map <C-n> :NERDTreeToggle<CR>
 " Close vim if last window is NERDtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"--------------- Markdown-preview -----------
-let g:mkdp_path_to_chrome = "firefox"
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_open = 1
-let g:mkdp_auto_close = 1
+"--------------- Markdown-composer -----------
+let g:markdown_composer_syntax_theme = 'Monokai'
 
 "--------------- CtrlP -----------
 let g:ctrlp_map = '<c-p>'

@@ -114,7 +114,6 @@ if [[ -n "$TMUX" ]]; then
   bind '"\e[4~":"\eOF"'
 fi
 
-source ~/.aliases
 # Neovim fix
 export VTE_VERSION=100
 # Use xterm on i3
@@ -124,7 +123,8 @@ start-pulseaudio-x11
 
 # ---- Additional commands ---- #
 source ~/.utilities
-toggle-python 3.6
+source ~/.aliases
+export _CUR_PYTHON_VERSION=3.6
 echo ""
 
 # ---- Configuration status check ---- #

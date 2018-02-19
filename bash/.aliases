@@ -55,7 +55,13 @@ alias dclogs='docker-compose logs -f'
 # Tmux uses 256 colors
 alias tmux='tmux -2'
 
-# Vim aliasess
+# Vim
 alias vimvim='/usr/bin/vim'
 alias vim='nvim'
 alias wsteam='WINEPREFIX=/home/antoine/fun/wine/ wine /home/antoine/fun/wine/drive_c/Program\ Files/Steam/Steam.exe --no-cef-sandbox'
+
+# Python
+alias python='python3.6'
+alias pip='python3.6 -m pip'
+alias pylint='python3.6 -m pylint'
+alias yapf='python3.6 -m yapf'

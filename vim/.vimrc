@@ -40,6 +40,9 @@ set ignorecase
 set smartcase
 " Show matches on TAB completion
 set wildmenu
+" Set new split position
+set splitright
+set splitbelow
 "" Disable arrow keys
 noremap <Up> <nop>
 noremap <Down> <nop>

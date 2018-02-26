@@ -48,7 +48,6 @@ set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
 
 "--------------- vim-airline -------------
-let g:airline_theme = 'badwolf'
 
 "--------------- indent-guides -----------
 let g:indent_guides_start_level = 2
@@ -88,21 +87,11 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "--------------- Markdown-composer -----------
-let g:markdown_composer_syntax_theme = 'Monokai'
+let g:markdown_composer_syntax_theme = 'monokai'
 
 "--------------- CtrlP -----------
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
-"--------------- vim-mutliple-cursors -----------
-" let g:multi_cursor_quit_key=''
-let g:multi_cursor_use_default_mapping = 0
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_skip_key='<C-x>'
-" Exit insert mode with jk, then exit multicursor mode with q
-let g:multi_cursor_exit_from_insert_mode=0
-let g:multi_cursor_quit_key='q'
-let g:multi_cursor_insert_maps={'j':1}
 
 "--------------- vim-commentary -----------
 

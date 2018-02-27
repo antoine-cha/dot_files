@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+a kill
@@ -161,6 +161,12 @@ bar {
 bindsym $mod+period exec amixer -q set Master 2dB+ unmute
 bindsym $mod+comma exec amixer -q set Master 2dB- unmute
 bindsym $mod+slash exec amixer -D pulse set Master 2+ toggle
+# _____ SCREEN ______ #
+
+bindsym $mod+F4 exec xbacklight -dec 20
+bindsym $mod+F5 exec xbacklight -inc 20
+
 exec_always "setxkbmap -model pc104 -layout us,fr -variant ,, -option grp:alt_shift_toggle -option caps:escape"
 exec_always "bash .config/polybar/launch.sh"
 exec_always "bash .screenlayout/dual_screen.sh"
+exec_always "nm-applet"

@@ -14,7 +14,7 @@ install: font system vim
 	stow -t $$HOME yapf
 
 font:
-	sudo curl ${URL_FONT} -o /usr/local/share/fonts/InconsolataGo-Bold-Nerd-Font-Complete-Mono.ttf
+	sudo curl ${URL_FONT} -o /usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 	fc-cache -f -v
 
 vim:

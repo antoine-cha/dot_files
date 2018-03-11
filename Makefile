@@ -26,13 +26,20 @@ system:
 	update-mime-database ~/.local/share/mime
 	sudo apt install xbacklight
 
-kitty: $(SRC_DIR)/$(HARFBUZZ) $(SRC_DIR)/$(LIBPNG)
+.PHONY: kitty
+kitty: $(SRC_DIR)/kitty
+
+$(SRC_DIR)/kitty: $(SRC_DIR)/$(HARFBUZZ) $(SRC_DIR)/$(LIBPNG)
 	sudo apt install \
 		libpng12-dev \
 		libxrandr-dev \
 		libxinerama-dev \
 		libxcursor-dev \
 		libxkbcommon-dev
+	git clone https://github.com/kovidgoyal/kitty $(SRC_DIR)/kitty
+	bash scripts/install_kitty.sh $(SRC_DIR)/kitty
+
+
 
 $(SRC_DIR)/$(HARFBUZZ): $(SRC_DIR)
 	bash scripts/install_harfbuzz.sh $(SRC_DIR) $(HARFBUZZ)

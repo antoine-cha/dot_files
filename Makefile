@@ -31,20 +31,35 @@ kitty: $(SRC_DIR)/kitty
 
 $(SRC_DIR)/kitty: $(SRC_DIR)/$(HARFBUZZ) $(SRC_DIR)/$(LIBPNG)
 	sudo apt install \
-		libpng12-dev \
 		libxrandr-dev \
 		libxinerama-dev \
 		libxcursor-dev \
+		libxkbcommon-x11-dev \
 		libxkbcommon-dev
 	git clone https://github.com/kovidgoyal/kitty $(SRC_DIR)/kitty
 	bash scripts/install_kitty.sh $(SRC_DIR)/kitty
 
 
+.PHONY: harfbuzz
+harfbuzz: $(SRC_DIR)/$(HARFBUZZ)
 
 $(SRC_DIR)/$(HARFBUZZ): $(SRC_DIR)
+	sudo apt install \
+		gtk-doc-tools \
+		libfontconfig-dev \
+		libfreetype6-dev \
+		libglib2.0-dev \
+		libcairo2-dev \
+		libtool
 	bash scripts/install_harfbuzz.sh $(SRC_DIR) $(HARFBUZZ)
 
+.PHONY: libpng
+libpng: $(SRC_DIR)/$(LIBPNG)
+
 $(SRC_DIR)/$(LIBPNG): $(SRC_DIR)
+	sudo apt install \
+		libpng12-dev \
+		zlib1g-dev
 	bash scripts/install_libpng16.sh $(SRC_DIR) $(LIBPNG)
 
 $(SRC_DIR):

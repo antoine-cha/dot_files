@@ -9,4 +9,5 @@ pwd
 ./autogen.sh
 make -j 8
 sudo make install
+sudo ldconfig
 popd

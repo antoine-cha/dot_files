@@ -1,4 +1,5 @@
 URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
+DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 SRC_DIR=~/.local/src/
 HARFBUZZ=harfbuzz-1.7.6
 LIBPNG=libpng-1.6.34
@@ -13,8 +14,11 @@ install: font system vim
 	stow -t $$HOME xterm
 	stow -t $$HOME yapf
 
-font:
-	sudo curl ${URL_FONT} -o /usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
+.PHONY: font
+font: ${DST_FONT}
+
+${DST_FONT}:
+	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
 
 vim:

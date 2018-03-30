@@ -26,6 +26,7 @@ function toggle-python() {
     NEW_PYTHON="python$PYTHON_VERSION"
     NEW_PIP="python$PYTHON_VERSION -m pip"
     NEW_PYLINT="python$PYTHON_VERSION -m pylint"
+    SUDO_PIP="sudo $NEW_PIP"
     $NEW_PYTHON --version
     $NEW_PIP --version
     $NEW_PIP install --quiet --upgrade pip
@@ -35,6 +36,7 @@ function toggle-python() {
     # Aliases defined in a function are not available until after that function is executed
     alias python=$NEW_PYTHON
     alias pip=$NEW_PIP
+    alias supip=$SUDO_PIP
     alias pylint=$NEW_PYLINT
     export _CUR_PYTHON_VERSION=$PYTHON_VERSION
 }

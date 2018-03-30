@@ -1,4 +1,4 @@
-
+"--------------- Deoplete -----------
 let g:deoplete#enable_at_startup = 1
 
 "--------------- NERDTree -----------
@@ -80,11 +80,5 @@ let g:rg_highlight = 1
 nnoremap <leader>s :Rg<Space>
 
 "--------------- vim-polyglot ---------------
-" let g:polyglot_disabled = ['python']
-"
+ " let g:polyglot_disabled = ['python']
 "--------------- vim-gitgutter ---------------
-highlight GitGutterAddLine ctermbg=22
-highlight GitGutterChangeLine ctermbg=136
-highlight GitGutterDelete ctermbg=88
-highlight GitGutterChangeDelete ctermbg=136
-

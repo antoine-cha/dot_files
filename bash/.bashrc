@@ -126,6 +126,9 @@ source ~/.utilities
 source ~/.aliases
 export _CUR_PYTHON_VERSION=3.6
 echo ""
+export PATH=$PATH:~/.local/bin/
+
+
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))

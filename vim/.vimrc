@@ -69,6 +69,7 @@ au BufRead,BufNewFile *.yml.template set filetype=yaml
 au BufRead,BufNewFile *.aws/credentials set filetype=dosini
 au BufRead,BufNewFile nginx*.conf set filetype=nginx
 au BufRead,BufNewFile .X* set filetype=xdefaults
+au BufRead,BufNewFile .ghci set filetype=haskell
 " Binding for lnext and lprev to jump to errors
 map <F3> :lprev <CR>
 map <F4> :lnext <CR>

@@ -52,6 +52,9 @@ noremap <Right> <nop>
 inoremap jk <Esc>
 " Fold code based on indent
 set foldmethod=indent
+
+
+""" ------------- Language Specifics ------------------
 " Change indentation for html
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -76,9 +79,6 @@ au BufRead,BufNewFile .ghci set filetype=haskell
 " Binding for lnext and lprev to jump to errors
 map <F3> :lprev <CR>
 map <F4> :lnext <CR>
-
-syntax enable
-
 " Enable italics
 set t_ZH=[3m
 set t_ZR=[23m
@@ -92,6 +92,18 @@ colorscheme molokai
 let g:molokai_original = 1
 let g:rehash256 = 1
 hi MatchParen      ctermfg=7 ctermbg=235  cterm=bold
+
+
+""" ------------- Autocomplete ------------------
+function! OpenCompletion()
+    if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
+        call feedkeys("\<C-x>\<C-o>", "n")
+    endif
+endfunction
+" Open autocompletion menu on every keystroke
+autocmd InsertCharPre * call OpenCompletion()
+" Do not insert when autocompletion menu appears
+set completeopt+=menuone,noselect,noinsert
 
 
 """ ------------- Pugins ------------------

@@ -55,6 +55,9 @@ set foldmethod=indent
 " Change indentation for html
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" PostgreSQL syntax by default
+let g:sql_type_default = 'pgsql'
+autocmd FileType sql setlocal commentstring=--\ %s
 " CPP highlighting for AngelScript files
 au BufRead,BufNewFile *.as set filetype=cpp "angelscript"
 au BufRead,BufNewFile *.as set filetype=cpp "angelscript"
@@ -75,9 +78,6 @@ map <F3> :lprev <CR>
 map <F4> :lnext <CR>
 
 syntax enable
-" PostgreSQL syntax by default
-let g:sql_type_default = 'pgsql'
-autocmd FileType sql setlocal commentstring=--\ %s
 
 " Enable italics
 set t_ZH=[3m

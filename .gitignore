@@ -1,3 +1,4 @@
 nvim/.config/nvim/plugged/
+nvim/.config/nvim/.netrwhist
 system/.local/share/mime/*
 !system/.local/share/mime/packages

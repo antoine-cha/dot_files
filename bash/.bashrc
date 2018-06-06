@@ -120,6 +120,7 @@ export VTE_VERSION=100
 export TERM=xterm-256color
 export TERMINAL=xterm
 start-pulseaudio-x11
+ssh-add
 
 # ---- Additional commands ---- #
 source ~/.utilities

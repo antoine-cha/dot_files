@@ -55,6 +55,7 @@ set foldmethod=indent
 " Change indentation for html
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " CPP highlighting for AngelScript files
 au BufRead,BufNewFile *.as set filetype=cpp "angelscript"
 au BufRead,BufNewFile *.as set filetype=cpp "angelscript"

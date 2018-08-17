@@ -94,6 +94,9 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 hi MatchParen      ctermfg=7 ctermbg=235  cterm=bold
 
+" Python setup
+let g:python3_host_prog = '/usr/bin/python3.6'
+
 
 """ ------------- Pugins ------------------
 if has('nvim')

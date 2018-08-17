@@ -18,6 +18,7 @@ endfunction
 call plug#begin()
 
 Plug 'airblade/vim-gitgutter'
+Plug 'ambv/black'
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline',
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }

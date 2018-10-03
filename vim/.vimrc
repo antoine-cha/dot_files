@@ -101,6 +101,7 @@ let g:python3_host_prog = '/usr/bin/python3.6'
 """ ------------- Pugins ------------------
 if has('nvim')
     source ~/.vim/neo.vim
+    source ~/.vim/neo-plugins.vim
 else
     source ~/.vim/plugins.vim
 endif

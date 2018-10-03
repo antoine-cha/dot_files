@@ -161,8 +161,8 @@ bar {
 bindsym $mod+period exec amixer -q set Master 2dB+ unmute
 bindsym $mod+comma exec amixer -q set Master 2dB- unmute
 bindsym $mod+slash exec amixer -D pulse set Master 2+ toggle
-# _____ SCREEN ______ #
 
+# _____ SCREEN ______ #
 bindsym $mod+F4 exec xbacklight -dec 20
 bindsym $mod+F5 exec xbacklight -inc 20
 

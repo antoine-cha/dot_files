@@ -25,6 +25,7 @@ Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'honza/vim-snippets',
 Plug 'jremmen/vim-ripgrep'
 Plug 'kien/ctrlp.vim',
+Plug 'lervag/vimtex'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neomake/neomake'
 Plug 'octol/vim-cpp-enhanced-highlight'

@@ -24,7 +24,8 @@ Plug 'bling/vim-airline',
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 Plug 'honza/vim-snippets',
 Plug 'jremmen/vim-ripgrep'
-Plug 'kien/ctrlp.vim',
+Plug 'junegunn/fzf', { 'dir': '~/.local/src/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'lervag/vimtex'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neomake/neomake'

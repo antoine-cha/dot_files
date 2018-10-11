@@ -14,9 +14,7 @@ install: font system vim
 	stow -t $$HOME xterm
 	stow -t $$HOME yapf
 
-.PHONY: font
 font: ${DST_FONT}
-
 ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
@@ -30,7 +28,17 @@ system:
 	update-mime-database ~/.local/share/mime
 	sudo apt install xbacklight
 
-.PHONY: kitty
+zsh:
+	sudo apt install zsh
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+#TODO: add my theme
+
+
+
+# ======================
+# ======= kitty ========
+# ======================
 kitty: $(SRC_DIR)/kitty
 
 $(SRC_DIR)/kitty: $(SRC_DIR)/$(HARFBUZZ) $(SRC_DIR)/$(LIBPNG)

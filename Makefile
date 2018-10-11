@@ -31,6 +31,8 @@ system:
 zsh:
 	sudo apt install zsh
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	chsh
+	echo "Logout to set the default shell to ZSH"
 
 #TODO: add my theme
 

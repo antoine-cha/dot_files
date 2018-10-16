@@ -19,6 +19,7 @@ ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
 
+
 vim:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	stow -t $$HOME vim
@@ -33,9 +34,7 @@ zsh:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	chsh
 	echo "Logout to set the default shell to ZSH"
-
-#TODO: add my theme
-
+	stow -t $$HOME zsh
 
 
 # ======================

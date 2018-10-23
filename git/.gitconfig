@@ -1,8 +1,8 @@
 [user]
-	name = antoine-cha
-	email = antoine.chassang0@gmail.com
+    name = antoine-cha
+    email = antoine.chassang0@gmail.com
 [core]
-	editor = vim
+    editor = vim
 [alias]
     br = branch
     bra = branch --all
@@ -30,3 +30,7 @@
     date = relative
 [format]
     pretty = format:%C(yellow)%h %C(cyan)%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
+[pager]
+    log = diff-so-fancy | less --tabs=1,5 -RFX
+    diff = diff-so-fancy | less --tabs=1,5 -RFX
+    show = diff-so-fancy | less --tabs=1,5 -RFX

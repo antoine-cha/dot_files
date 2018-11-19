@@ -56,6 +56,7 @@ set foldmethod=indent
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType sql setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " PostgreSQL syntax by default
 let g:sql_type_default = 'pgsql'
 autocmd FileType sql setlocal commentstring=--\ %s

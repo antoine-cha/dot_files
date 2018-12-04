@@ -63,9 +63,10 @@ alias vim='nvim'
 alias wsteam='WINEPREFIX=/home/antoine/fun/wine/ wine /home/antoine/fun/wine/drive_c/Program\ Files/Steam/Steam.exe --no-cef-sandbox'
 
 # Python
-alias python='python3.6'
-alias python3='python3.6'
-alias pip='python3.6 -m pip'
-alias supip='sudo python3.6 -m pip'
-alias pylint='python3.6 -m pylint'
-alias yapf='python3.6 -m yapf'
+_PYTHON_VERSION=3.6
+alias python="python${_PYTHON_VERSION}"
+alias python3="python${_PYTHON_VERSION}"
+alias pip="python${_PYTHON_VERSION} -m pip"
+alias supip="sudo python${_PYTHON_VERSION} -m pip"
+alias pylint="python${_PYTHON_VERSION} -m pylint"
+alias yapf="python${_PYTHON_VERSION} -m yapf"

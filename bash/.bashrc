@@ -137,3 +137,5 @@ pushd $CONFIG_REPO
 git st
 popd
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

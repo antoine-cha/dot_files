@@ -77,3 +77,12 @@ $(SRC_DIR)/$(LIBPNG): $(SRC_DIR)
 
 $(SRC_DIR):
 	mkdir $(SRC_DIR)
+
+# Lightweight configuration for a server
+server:
+	cp server/vimrc ~/.vimrc
+	cp server/tmux.conf ~/.tmux.conf
+	cp server/bashrc ~/.bashrc
+	cp server/inputrc ~/.inputrc
+	cp server/gitconfig ~/.gitconfig
+	echo "You should now source ~/.bashrc to apply changes"

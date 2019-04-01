@@ -1,0 +1,5 @@
+# Ignore case while completing
+set completion-ignore-case on
+# Up & down arrows perform history lookups based on typed prefix
+"\e[A": history-search-backward            # arrow up
+"\e[B": history-search-forward             # arrow down

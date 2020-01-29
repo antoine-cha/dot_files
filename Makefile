@@ -1,16 +1,11 @@
 URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
 DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
-SRC_DIR=~/.local/src/
-HARFBUZZ=harfbuzz-1.7.6
-LIBPNG=libpng-1.6.34
+DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 
+.PHONY: git tmux
 install: font system vim
 	stow -t $$HOME bash
-	stow -t $$HOME git
-	stow -t $$HOME i3
-	stow -t $$HOME nvim
 	stow -t $$HOME pylint
-	stow -t $$HOME tmux
 	stow -t $$HOME xterm
 	stow -t $$HOME yapf
 
@@ -19,27 +14,54 @@ ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
 
+install_utils: git tmux
+	sudo apt install htop tree 
+
+tmux: 
+	sudo apt install tmux
+	stow -t $$HOME tmux
+
+git: 
+	sudo apt install git
+	curl ${DIFF_URL} -o ~/.local/bin/diff-so-fancy
+	chmod +x ~/.local/bin/diff-so-fancy
+	stow -t $$HOME git
+
+neovim_install:
+	# Install neovim by downloading the appimage from Github
+	# Install the python-neovim package
+
+# Customize zsh
+neovim_setup:
+	# Install the plugins
+	# Copy my configuration file
+	stow -t $$HOME nvim
 
 vim:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	stow -t $$HOME vim
 
-system:
-	stow -t $$HOME system
-	update-mime-database ~/.local/share/mime
-	sudo apt install xbacklight
+#system:
+#	stow -t $$HOME system
+#	update-mime-database ~/.local/share/mime
 
-zsh:
+OH_MY_ZSH_URL=https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+zsh_install:
 	sudo apt install zsh
-	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	sh -c "$$(curl -fsSL ${OH_MY_ZSH_URL})"
 	chsh
 	echo "Logout to set the default shell to ZSH"
+
+zsh_setup:
 	stow -t $$HOME zsh
 
 
 # ======================
 # ======= kitty ========
 # ======================
+SRC_DIR=~/.local/src/
+HARFBUZZ=harfbuzz-1.7.6
+LIBPNG=libpng-1.6.34
 kitty: $(SRC_DIR)/kitty
 
 $(SRC_DIR)/kitty: $(SRC_DIR)/$(HARFBUZZ) $(SRC_DIR)/$(LIBPNG)

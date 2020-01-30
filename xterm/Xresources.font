@@ -1,0 +1,8 @@
+xterm*termName: xterm-256color
+XTerm.vt100.locale: true
+
+xterm*locale: true
+
+xterm*.faceName: InconsolataGo Nerd Font Mono:style=Regular
+xterm*.faceSize: 12
+

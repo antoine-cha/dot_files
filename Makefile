@@ -1,50 +1,42 @@
-URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
-DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
-DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-
-.PHONY: git tmux
-install: font system vim
-	stow -t $$HOME bash
-	stow -t $$HOME pylint
+.PHONY: tmux xterm
+install: font system install_utils
 	stow -t $$HOME xterm
-	stow -t $$HOME yapf
-
-font: ${DST_FONT}
-${DST_FONT}:
-	sudo curl ${URL_FONT} -o ${DST_FONT}
-	fc-cache -f -v
+	stow -t $$HOME bash
 
 install_utils: git tmux
-	sudo apt install htop tree 
+	sudo apt install curl htop tree 
 
 tmux: 
 	sudo apt install tmux
 	stow -t $$HOME tmux
 
-git: 
+DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+git: ~/.local/bin/diff-so-fancy
+	stow -t $$HOME git
+~/.local/bin/diff-so-fancy:
 	sudo apt install git
 	curl ${DIFF_URL} -o ~/.local/bin/diff-so-fancy
 	chmod +x ~/.local/bin/diff-so-fancy
-	stow -t $$HOME git
 
-neovim_install:
-	# Install neovim by downloading the appimage from Github
-	# Install the python-neovim package
+# Set up the font and colors for xterm
+xterm: xterm/Xresources.generated
+	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
 
+xterm/Xresources.generated:
+	sudo apt install xterm
+	DOT_DIR=$(shell pwd) envsubst < xterm/Xresources > xterm/Xresources.generated
+
+URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
+DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
+font: ${DST_FONT}
+${DST_FONT}:
+	sudo curl ${URL_FONT} -o ${DST_FONT}
+	fc-cache -f -v
+	
+# ======================
+# =======  ZSH  ========
+# ======================
 # Customize zsh
-neovim_setup:
-	# Install the plugins
-	# Copy my configuration file
-	stow -t $$HOME nvim
-
-vim:
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	stow -t $$HOME vim
-
-#system:
-#	stow -t $$HOME system
-#	update-mime-database ~/.local/share/mime
-
 OH_MY_ZSH_URL=https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 zsh_install:
 	sudo apt install zsh
@@ -56,6 +48,27 @@ zsh_setup:
 	stow -t $$HOME zsh
 
 
+# ======================
+# =======  Vim  ========
+# ======================
+neovim_install:
+	# Install neovim by downloading the appimage from Github
+	# Install the python-neovim package
+	
+VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+neovim_setup:
+	# Install the plugins
+	# Copy my configuration file
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs ${VIM_PLUG_URL}
+	stow -t $$HOME nvim
+	stow -t $$HOME vim
+
+# ======================
+# ====== Python ========
+# ======================
+python:
+	stow -t $$HOME pylint
+	stow -t $$HOME yapf
 # ======================
 # ======= kitty ========
 # ======================

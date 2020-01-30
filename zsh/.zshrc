@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/chacha/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -106,13 +106,6 @@ if [[ -n "$TMUX" ]]; then
   bind '"\e[4~":"\eOF"'
 fi
 
-# Neovim fix
-export VTE_VERSION=100
-# Use xterm on i3
-export TERM=xterm-256color
-export TERMINAL=xterm
-start-pulseaudio-x11
-ssh-add
 
 # ---- Additional commands ---- #
 source ~/.utilities
@@ -128,9 +121,6 @@ echo "Status of config repo:"
 pushd $CONFIG_REPO
 git st
 popd
-
-# ---- ZSH Plugins ---- #
-source ~/.local/src/zsh-kubectl-prompt/kubectl.zsh
 
 # ---- Autocompletion ---- #
 for auto_comp_file in $(ls ~/.local/autocomplete)

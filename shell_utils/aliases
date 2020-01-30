@@ -52,21 +52,8 @@ alias d-c='docker-compose'
 alias d-m='docker-machine'
 alias dclogs='docker-compose logs -f'
 
-# Bash
+# --------- Bash ---------
 alias ll='ls -ahl'
 # Tmux uses 256 colors
 alias tmux='tmux -2'
 
-# Vim
-alias vimvim='/usr/bin/vim'
-alias vim='nvim'
-alias wsteam='WINEPREFIX=/home/antoine/fun/wine/ wine /home/antoine/fun/wine/drive_c/Program\ Files/Steam/Steam.exe --no-cef-sandbox'
-
-# Python
-_PYTHON_VERSION=3.6
-alias python="python${_PYTHON_VERSION}"
-alias python3="python${_PYTHON_VERSION}"
-alias pip="python${_PYTHON_VERSION} -m pip"
-alias supip="sudo python${_PYTHON_VERSION} -m pip"
-alias pylint="python${_PYTHON_VERSION} -m pylint"
-alias yapf="python${_PYTHON_VERSION} -m yapf"

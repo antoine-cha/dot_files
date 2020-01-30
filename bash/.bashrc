@@ -76,9 +76,6 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -106,7 +103,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-# ----  Setup for Lubuntu  ---- #
 
 # Make home, end buttons work under Tmux
 if [[ -n "$TMUX" ]]; then
@@ -114,21 +110,10 @@ if [[ -n "$TMUX" ]]; then
   bind '"\e[4~":"\eOF"'
 fi
 
-# Neovim fix
-export VTE_VERSION=100
-# Use xterm on i3
-export TERM=xterm-256color
-export TERMINAL=xterm
-start-pulseaudio-x11
-ssh-add
-
 # ---- Additional commands ---- #
 source ~/.utilities
 source ~/.aliases
 export _CUR_PYTHON_VERSION=3.6
-echo ""
-export PATH=$PATH:~/.local/bin/
-export PATH=$PATH:~/.cabal/bin/
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))
@@ -136,6 +121,5 @@ echo "Status of config repo:"
 pushd $CONFIG_REPO
 git st
 popd
-
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

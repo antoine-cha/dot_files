@@ -33,6 +33,16 @@ font: ${DST_FONT}
 ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
+
+
+nvtop: 
+	sudo apt install cmake libncurses5-dev libncursesw5-dev git
+	git clone https://github.com/Syllo/nvtop.git ~/.local/src/nvtop
+	mkdir -p ~/.local/src/nvtop/build
+	cd ~/.local/src/nvtop/build && cmake ..
+	make -C ~/.local/src/nvtop/build
+	sudo make -C ~/.local/src/nvtop/build install
+
 	
 # ======================
 # =======  ZSH  ========

@@ -116,7 +116,7 @@ export PATH=$PATH:~/.local/bin/
 export PATH=$PATH:~/.cabal/bin/
 
 # ---- Configuration status check ---- #
-CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))
+CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.zshrc)))
 echo "Status of config repo:"
 pushd $CONFIG_REPO
 git st

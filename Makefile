@@ -3,13 +3,12 @@ DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 
 .PHONY: tmux xterm
 install: font system install_utils
-	stow -t $$HOME xterm
 	stow -t $$HOME bash
 
 install_utils: git tmux
-	sudo apt install curl htop tree 
+	sudo apt install curl htop tree
 
-tmux: 
+tmux:
 	sudo apt install tmux
 	stow -t $$HOME tmux
 
@@ -24,6 +23,7 @@ git: ~/.local/bin/diff-so-fancy
 # Set up the font and colors for xterm
 xterm: xterm/Xresources.generated ${DST_FONT}
 	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
+	stow -t $$HOME xterm
 
 xterm/Xresources.generated:
 	sudo apt install xterm
@@ -36,7 +36,7 @@ ${DST_FONT}:
 
 
 # Htop for the GPU
-nvtop: 
+nvtop:
 	sudo apt install cmake libncurses5-dev libncursesw5-dev git
 	git clone https://github.com/Syllo/nvtop.git ~/.local/src/nvtop
 	mkdir -p ~/.local/src/nvtop/build
@@ -44,7 +44,7 @@ nvtop:
 	make -C ~/.local/src/nvtop/build
 	sudo make -C ~/.local/src/nvtop/build install
 
-	
+
 # ======================
 # =======  ZSH  ========
 # ======================
@@ -63,22 +63,25 @@ zsh_setup:
 # ======================
 # =======  Vim  ========
 # ======================
-neovim: ~/.local/bin/nvim neovim_setup
+neovim: ~/.local/bin/nvim neovim_setup neovim_config
 
+NVIM_URL=https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 ~/.local/bin/nvim:
 	# Install neovim by downloading the appimage from Github
-	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o $@
+	curl -L ${NVIM_URL} -o $@
 	chmod u+x $@
-	
+
 VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 neovim_setup:
-	# Install the plugins
+	# Install VimPlug
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs ${VIM_PLUG_URL}
+	# Install the python-neovim package
+	sudo apt install python3-neovim
+
+neovim_config:
 	# Copy my configuration file
 	stow -t $$HOME nvim
 	stow -t $$HOME vim
-	# Install the python-neovim package
-	sudo apt install python3-neovim
 
 # ======================
 # ====== Python ========

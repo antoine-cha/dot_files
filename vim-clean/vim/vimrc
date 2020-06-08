@@ -108,7 +108,7 @@ set t_ZR=[23m
 set diffopt=vertical,filler
 
 """ ------------- Pugins ------------------
-source ~/.vim/plugins.vim
+" source ~/.vim/plugins.vim
 "if has('nvim')
 "    source ~/.vim/neo.vim
 "    source ~/.vim/neo-plugins.vim

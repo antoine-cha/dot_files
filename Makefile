@@ -1,5 +1,5 @@
-URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
-DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
+# Get the directory of the Makefile
+MKFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 .PHONY: tmux xterm
 install: font system install_utils
@@ -21,6 +21,7 @@ git: ~/.local/bin/diff-so-fancy
 	chmod +x ~/.local/bin/diff-so-fancy
 
 # Set up the font and colors for xterm
+DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 xterm: xterm/Xresources.generated ${DST_FONT}
 	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
 	stow -t $$HOME xterm
@@ -29,11 +30,11 @@ xterm/Xresources.generated:
 	sudo apt install xterm
 	DOT_DIR=$(shell pwd) envsubst < xterm/Xresources > xterm/Xresources.generated
 
+URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
 font: ${DST_FONT}
 ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
-
 
 # Htop for the GPU
 nvtop:
@@ -73,15 +74,15 @@ NVIM_URL=https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 
 VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 neovim_setup:
+	# Install the python-neovim package
+	sudo apt install python3-neovim neovim- neovim-runtime-
 	# Install VimPlug
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs ${VIM_PLUG_URL}
-	# Install the python-neovim package
-	sudo apt install python3-neovim
 
 neovim_config:
-	# Copy my configuration file
-	stow -t $$HOME nvim
-	stow -t $$HOME vim
+	ln -s ${MKFILE_DIR}/vim-clean/neovim-entrypoint/init.vim $$HOME/.config/nvim/init.vim
+	mkdir $$HOME/.vim-clean
+	stow -t $$HOME/.vim/ -d vim-clean vim
 
 # ======================
 # ====== Python ========

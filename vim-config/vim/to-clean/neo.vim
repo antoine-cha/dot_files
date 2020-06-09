@@ -1,6 +1,3 @@
-" Check for files to source
-runtime! config/**/*.vim
-
 tnoremap jk <C-\><C-n>
 
 set nocompatible

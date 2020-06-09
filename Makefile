@@ -64,25 +64,30 @@ zsh_setup:
 # ======================
 # =======  Vim  ========
 # ======================
-neovim: ~/.local/bin/nvim neovim_setup neovim_config
+NVIM_BIN=${HOME}/.local/bin/nvim
+NVIM_PY=/usr/lib/python3/dist-packages/neovim/version.py
+NVIM_INIT=${HOME}/.config/nvim/init.vim
+NVIM_PLUG=${HOME}/.vim/autoload/plug.vim
+
+.PHONY: neovim
+neovim: $(NVIM_BIN) ~/.vim/autoload/plug.vim ~/.config/nvim/init.vim $(NVIM_PY)
+	nvim --version
+
+$(NVIM_PY):
+	sudo apt install python3-neovim neovim- neovim-runtime-
 
 NVIM_URL=https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-~/.local/bin/nvim:
-	# Install neovim by downloading the appimage from Github
+$(NVIM_BIN):
 	curl -L ${NVIM_URL} -o $@
 	chmod u+x $@
 
 VIM_PLUG_URL=https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-neovim_setup:
-	# Install the python-neovim package
-	sudo apt install python3-neovim neovim- neovim-runtime-
-	# Install VimPlug
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs ${VIM_PLUG_URL}
+$(NVIM_PLUG):
+	curl -fLo $(NVIM_PLUG) --create-dirs ${VIM_PLUG_URL}
 
-neovim_config:
-	ln -s ${MKFILE_DIR}/vim-clean/neovim-entrypoint/init.vim $$HOME/.config/nvim/init.vim
-	mkdir $$HOME/.vim-clean
-	stow -t $$HOME/.vim/ -d vim-clean vim
+$(NVIM_INIT):
+	stow -t $$HOME/.vim/ -d vim-config vim
+	ln -s ${MKFILE_DIR}/vim-config/neovim-entrypoint/init.vim $(NVIM_INIT)
 
 # ======================
 # ====== Python ========

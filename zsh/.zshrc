@@ -110,9 +110,12 @@ git st
 popd >/dev/null
 
 # ---- Autocompletion ---- #
-for auto_comp_file in $(ls ~/.local/autocomplete)
-do
-    source ~/.local/autocomplete/$auto_comp_file
-done
+AUTCOMP_DIR=~/.local/autocomplete
+if  [ -d "$AUTOCOMP_DIR" ]; then
+  for autocomp_file in $(ls $AUTOCOMP_DIR)
+  do
+      source $AUTOCOMP_DIR/$autocomp_file
+  done
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

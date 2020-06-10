@@ -98,29 +98,16 @@ source $ZSH/oh-my-zsh.sh
 # ----  Don't check globs before execution ---- #
 setopt +o nomatch
 
-# ----  Setup for Lubuntu  ---- #
-
-# Make home, end buttons work under Tmux
-if [[ -n "$TMUX" ]]; then
-  bind '"\e[1~":"\eOH"'
-  bind '"\e[4~":"\eOF"'
-fi
-
-
 # ---- Additional commands ---- #
-source ~/.utilities
 source ~/.aliases
-export _CUR_PYTHON_VERSION=3.6
-echo ""
 export PATH=$PATH:~/.local/bin/
-export PATH=$PATH:~/.cabal/bin/
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.zshrc)))
-echo "Status of config repo:"
-pushd $CONFIG_REPO
+echo "Status of config repo (${CONFIG_REPO})"
+pushd $CONFIG_REPO > /dev/null
 git st
-popd
+popd >/dev/null
 
 # ---- Autocompletion ---- #
 for auto_comp_file in $(ls ~/.local/autocomplete)

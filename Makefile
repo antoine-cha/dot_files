@@ -10,11 +10,12 @@ install_utils: git tmux
 
 tmux:
 	sudo apt install tmux
-	ln -s ./tmux/tmux.conf $$HOME/.tmux.conf
+	ln -s ${MKFILE_DIR}/tmux/tmux.conf $$HOME/.tmux.conf
 
 DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 git: ~/.local/bin/diff-so-fancy
-	stow -t $$HOME git
+	ln -s ${MKFILE_DIR}/git/gitconfig $$HOME/.gitconfig
+
 ~/.local/bin/diff-so-fancy:
 	sudo apt install git
 	curl ${DIFF_URL} -o ~/.local/bin/diff-so-fancy
@@ -70,7 +71,7 @@ NVIM_INIT=${HOME}/.config/nvim/init.vim
 NVIM_PLUG=${HOME}/.vim/autoload/plug.vim
 
 .PHONY: neovim
-neovim: $(NVIM_BIN) ~/.vim/autoload/plug.vim ~/.config/nvim/init.vim $(NVIM_PY)
+neovim: $(NVIM_BIN) $(NVIM_PLUG) $(NVIM_INIT) $(NVIM_PY)
 	nvim --version
 
 $(NVIM_PY):

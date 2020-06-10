@@ -10,7 +10,7 @@ install_utils: git tmux
 
 tmux:
 	sudo apt install tmux
-	stow -t $$HOME tmux
+	ln -s ./tmux/tmux.conf $$HOME/.tmux.conf
 
 DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 git: ~/.local/bin/diff-so-fancy

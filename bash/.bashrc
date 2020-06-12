@@ -111,9 +111,7 @@ if [[ -n "$TMUX" ]]; then
 fi
 
 # ---- Additional commands ---- #
-source ~/.utilities
 source ~/.aliases
-export _CUR_PYTHON_VERSION=3.6
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.bashrc)))

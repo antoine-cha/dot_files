@@ -32,24 +32,25 @@ get_completions(){
     echo "${COMPREPLY[@]}"
 }
 
-# --------- Docker ---------
 function _listcontainers() {
     local cur=${COMP_WORDS[COMP_CWORD]}
     local comp=$(get_completions 'docker attach ')
     COMPREPLY=( $(compgen -W "$comp" -- $cur) )
 }
 
+# --------- Aliases & Functions ---------
 function dockbash() {
     docker exec -ti $1 /bin/bash
 }
+
 function dlogsnow() {
     docker logs --since `date +%s` -f $1
 }
 
 complete -F _listcontainers dockbash
 complete -F _listcontainers dlogsnow
+
 alias d-c='docker-compose'
 alias dclogs='docker-compose logs -f'
 
-# --------- Bash ---------
 alias ll='ls -ahl'

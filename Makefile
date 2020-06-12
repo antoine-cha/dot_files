@@ -21,26 +21,16 @@ git: ~/.local/bin/diff-so-fancy
 	curl ${DIFF_URL} -o ~/.local/bin/diff-so-fancy
 	chmod +x ~/.local/bin/diff-so-fancy
 
-# Set up the font and colors for xterm
-DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
-xterm: xterm/Xresources.generated ${DST_FONT}
-	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
-	stow -t $$HOME xterm
-
-xterm/Xresources.generated:
-	sudo apt install xterm
-	DOT_DIR=$(shell pwd) envsubst < xterm/Xresources > xterm/Xresources.generated
-
 URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
 font: ${DST_FONT}
 ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
 	fc-cache -f -v
 
-# Htop for the GPU
+NVTOP_URL=https://github.com/Syllo/nvtop.git
 nvtop:
 	sudo apt install cmake libncurses5-dev libncursesw5-dev git
-	git clone https://github.com/Syllo/nvtop.git ~/.local/src/nvtop
+	git clone ${NVTOP_URL} ~/.local/src/nvtop
 	mkdir -p ~/.local/src/nvtop/build
 	cd ~/.local/src/nvtop/build && cmake ..
 	make -C ~/.local/src/nvtop/build
@@ -48,22 +38,25 @@ nvtop:
 
 
 # ======================
-# =======  ZSH  ========
+# =        ZSH         =
 # ======================
 # Customize zsh
+OH_MY_ZSH_DIR=${HOME}/.oh-my-zsh/
+zsh: ${OH_MY_ZSH} zsh_config
+
+zsh_config: ${OH_MY_ZSH_DIR}
+	ln -s ${MKFILE_DIR}/zsh/zshrc $$HOME/.zshrc
+	stow -t ${OH_MY_ZSH_DIR}/.oh-my-zsh/custom/ -d zsh oh-my-zsh-custom
+
 OH_MY_ZSH_URL=https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-zsh_install:
+$(OH_MY_ZSH_DIR):
 	sudo apt install zsh
 	sh -c "$$(curl -fsSL ${OH_MY_ZSH_URL})"
 	chsh
 	echo "Logout to set the default shell to ZSH"
 
-zsh_setup:
-	stow -t $$HOME zsh
-
-
 # ======================
-# =======  Vim  ========
+# =        Vim         =
 # ======================
 NVIM_BIN=${HOME}/.local/bin/nvim
 NVIM_PY=/usr/lib/python3/dist-packages/neovim/version.py
@@ -91,13 +84,27 @@ $(NVIM_INIT):
 	ln -s ${MKFILE_DIR}/vim-config/neovim-entrypoint/init.vim $(NVIM_INIT)
 
 # ======================
-# ====== Python ========
+# =      Server        =
+# ======================
+# Lightweight configuration for a server
+# TODO: replace cp by cat >>
+server:
+	cp server/vimrc ~/.vimrc
+	cp server/tmux.conf ~/.tmux.conf
+	cp server/bashrc ~/.bashrc
+	cp server/inputrc ~/.inputrc
+	cp server/gitconfig ~/.gitconfig
+	echo "You should now source ~/.bashrc to apply changes"
+
+# ======================
+# =      Python        =
 # ======================
 #python:
 	#stow -t $$HOME pylint
 	#stow -t $$HOME yapf
+
 # ======================
-# ======= kitty ========
+# =       kitty        =
 # ======================
 SRC_DIR=~/.local/src/
 HARFBUZZ=harfbuzz-1.7.6
@@ -140,11 +147,16 @@ $(SRC_DIR)/$(LIBPNG): $(SRC_DIR)
 $(SRC_DIR):
 	mkdir $(SRC_DIR)
 
-# Lightweight configuration for a server
-server:
-	cp server/vimrc ~/.vimrc
-	cp server/tmux.conf ~/.tmux.conf
-	cp server/bashrc ~/.bashrc
-	cp server/inputrc ~/.inputrc
-	cp server/gitconfig ~/.gitconfig
-	echo "You should now source ~/.bashrc to apply changes"
+# ======================
+# =       xterm        =
+# ======================
+
+# Set up the font and colors for xterm
+DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
+xterm: xterm/Xresources.generated ${DST_FONT}
+	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
+	stow -t $$HOME xterm
+
+xterm/Xresources.generated:
+	sudo apt install xterm
+	DOT_DIR=$(shell pwd) envsubst < xterm/Xresources > xterm/Xresources.generated

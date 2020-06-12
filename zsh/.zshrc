@@ -104,10 +104,12 @@ export PATH=$PATH:~/.local/bin/
 
 # ---- Configuration status check ---- #
 CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.zshrc)))
-echo "Status of config repo (${CONFIG_REPO})"
+echo "Status of config repo (${CONFIG_REPO}):"
+set +o PUSHD_IGNORE_DUPS
 pushd $CONFIG_REPO > /dev/null
 git st
-popd >/dev/null
+popd > /dev/null
+set -o PUSHD_IGNORE_DUPS
 
 # ---- Autocompletion ---- #
 AUTCOMP_DIR=~/.local/autocomplete

@@ -63,7 +63,11 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  timer
 )
+# Set formatting of execution time
+TIMER_FORMAT='[%d]'
+TIMER_PRECISION=2
 
 source $ZSH/oh-my-zsh.sh
 

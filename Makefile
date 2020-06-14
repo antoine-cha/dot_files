@@ -22,6 +22,7 @@ git: ~/.local/bin/diff-so-fancy
 	chmod +x ~/.local/bin/diff-so-fancy
 
 URL_FONT=https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/InconsolataGo/Regular/complete/InconsolataGo%20Nerd%20Font%20Complete%20Mono.ttf
+DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 font: ${DST_FONT}
 ${DST_FONT}:
 	sudo curl ${URL_FONT} -o ${DST_FONT}
@@ -152,7 +153,6 @@ $(SRC_DIR):
 # ======================
 
 # Set up the font and colors for xterm
-DST_FONT=/usr/local/share/fonts/InconsolataGo-Nerd-Font-Complete-Mono.ttf
 xterm: xterm/Xresources.generated ${DST_FONT}
 	ln -s $(shell pwd)/xterm/Xresources.generated ~/.Xresources-$(shell hostname)
 	stow -t $$HOME xterm

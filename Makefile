@@ -5,7 +5,11 @@ MKFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 install: font system install_utils
 	stow -t $$HOME bash
 
-install_utils: git tmux
+
+# ======================
+# =    Shell utils     =
+# ======================
+install_utils: git tmux $(NVTOP_TGT)
 	sudo apt install curl htop tree
 
 tmux:
@@ -29,13 +33,14 @@ ${DST_FONT}:
 	fc-cache -f -v
 
 NVTOP_URL=https://github.com/Syllo/nvtop.git
-nvtop:
+NVTOP_TGT=~/.local/bin/nvtop
+$(NVTOP_TGT):
 	sudo apt install cmake libncurses5-dev libncursesw5-dev git
 	git clone ${NVTOP_URL} ~/.local/src/nvtop
 	mkdir -p ~/.local/src/nvtop/build
-	cd ~/.local/src/nvtop/build && cmake ..
+	cd ~/.local/src/nvtop/build && cmake -DCMAKE_INSTALL_PREFIX=~/.local/ ..
 	make -C ~/.local/src/nvtop/build
-	sudo make -C ~/.local/src/nvtop/build install
+	make -C ~/.local/src/nvtop/build install
 
 
 # ======================
@@ -55,6 +60,7 @@ $(OH_MY_ZSH_DIR):
 	sh -c "$$(curl -fsSL ${OH_MY_ZSH_URL})"
 	chsh
 	echo "Logout to set the default shell to ZSH"
+
 
 # ======================
 # =        Vim         =

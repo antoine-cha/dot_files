@@ -9,7 +9,7 @@ install: font system install_utils
 # ======================
 # =    Shell utils     =
 # ======================
-install_utils: git tmux $(NVTOP_TGT)
+install_utils: git tmux $(NVTOP_TGT) $(FZF_TGT)
 	sudo apt install curl htop tree
 
 tmux:
@@ -41,6 +41,11 @@ $(NVTOP_TGT):
 	cd ~/.local/src/nvtop/build && cmake -DCMAKE_INSTALL_PREFIX=~/.local/ ..
 	make -C ~/.local/src/nvtop/build
 	make -C ~/.local/src/nvtop/build install
+
+$(FZF_TGT)=~/.local/src/fzf/bin/fzf
+$(FZF_TGT):
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/src/fzf
+	~/.local/src/fzf/install --bin
 
 
 # ======================

@@ -62,12 +62,15 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  fzf
   git
   timer
 )
 # Set formatting of execution time
 TIMER_FORMAT='[%d]'
 TIMER_PRECISION=2
+# FZF install dir
+FZF_BASE=~/.local/src/fzf/
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,7 +102,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# ----  Don't check globs before execution ---- #
+
+# Don't check globs before execution
 setopt +o nomatch
 
 # ---- Additional commands ---- #
@@ -124,4 +128,5 @@ if  [ -d "$AUTOCOMP_DIR" ]; then
   done
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Do not display virtualenv using default behaviour
+VIRTUAL_ENV_DISABLE_PROMPT=1

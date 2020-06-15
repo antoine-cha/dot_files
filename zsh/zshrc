@@ -64,6 +64,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   fzf
   git
+  pip
   timer
 )
 # Set formatting of execution time

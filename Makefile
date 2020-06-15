@@ -9,6 +9,7 @@ install: font system install_utils
 # ======================
 # =    Shell utils     =
 # ======================
+.PHONY: instal_utils tmux git
 install_utils: git tmux $(NVTOP_TGT) $(FZF_TGT)
 	sudo apt install curl htop tree
 
@@ -18,6 +19,7 @@ tmux:
 
 DIFF_URL=https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 git: ~/.local/bin/diff-so-fancy
+	sudo apt install git-flow
 	ln -s ${MKFILE_DIR}/git/gitconfig $$HOME/.gitconfig
 
 ~/.local/bin/diff-so-fancy:
@@ -42,7 +44,7 @@ $(NVTOP_TGT):
 	make -C ~/.local/src/nvtop/build
 	make -C ~/.local/src/nvtop/build install
 
-$(FZF_TGT)=~/.local/src/fzf/bin/fzf
+FZF_TGT=~/.local/src/fzf/bin/fzf
 $(FZF_TGT):
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.local/src/fzf
 	~/.local/src/fzf/install --bin

@@ -107,11 +107,12 @@ source $ZSH/oh-my-zsh.sh
 setopt +o nomatch
 
 # ---- Additional commands ---- #
+alias ll='ls -al'
 source ~/.aliases
 export PATH=$PATH:~/.local/bin/
 
 # ---- Configuration status check ---- #
-CONFIG_REPO=$HOME/$(dirname $(dirname $(readlink $HOME/.zshrc)))
+CONFIG_REPO=$(dirname $(dirname $(readlink $HOME/.zshrc)))
 echo "Status of config repo (${CONFIG_REPO}):"
 set +o PUSHD_IGNORE_DUPS
 pushd $CONFIG_REPO > /dev/null
@@ -130,3 +131,4 @@ fi
 
 # Do not display virtualenv using default behaviour
 VIRTUAL_ENV_DISABLE_PROMPT=1
+
